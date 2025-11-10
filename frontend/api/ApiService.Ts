@@ -4,9 +4,18 @@
  * o aplicativo inteiro sem precisar do servidor real.
  */
 
-// Função auxiliar para simular o tempo de espera da rede
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+export interface LoginResponse {
+  token:string;
+}
+
+export interface RegisterResponse {
+  id: number;
+  nome: string;
+  email: string;
+}
+
+export interface Trasacao
 // --- 1. Autenticação ---
 
 export const apiLogin = async (email, senha) => {
