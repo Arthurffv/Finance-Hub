@@ -15,10 +15,25 @@ export interface RegisterResponse {
   email: string;
 }
 
-export interface Trasacao
+export interface Transaction{
+  id:number;
+  titulo: string;
+  valor: number;
+  tipo: 'receita' | 'gasto';
+  categoria: string;
+  data: string;
+}
+
+export interface SummaryResponse{
+  saldo_total: number;
+  total_receitas: number;
+  total_gastos: number;
+}
+
+const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 // --- 1. Autenticação ---
 
-export const apiLogin = async (email, senha) => {
+export const apiLogin = async (email:string, senha:string) => {
   await delay(1000); // Simula 1 segundo de "loading"
 
   // Usuário de teste
@@ -33,7 +48,7 @@ export const apiLogin = async (email, senha) => {
   }
 };
 
-export const apiRegister = async (nome, email, senha) => {
+export const apiRegister = async (nome:string, email:string, senha:string) => {
   await delay(1500);
   
   // Simula um email que já existe
@@ -87,23 +102,6 @@ export const apiGetTransactions = async () => {
   return [...mockTransactions];
 };
 
-export const apiAddTransaction = async (transacao) => {
-  await delay(1000);
-  
-  // Simula o backend criando um ID e data
-  const newTransaction = {
-    ...transacao,
-    id: Math.floor(Math.random() * 10000), // ID aleatório
-    data: new Date().toISOString(),
-  };
-
-  // Adiciona a nova transação no topo da lista
-  mockTransactions.unshift(newTransaction);
-  console.log('MOCK ADD TRANSACTION: Adicionado', newTransaction);
-  
-  // Retorna a transação criada, conforme o contrato
-  return newTransaction;
-};
 
 export const apiGetSummary = async () => {
   await delay(500);

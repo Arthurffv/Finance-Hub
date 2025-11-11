@@ -6,10 +6,14 @@ import {
   Button, 
   Alert, 
   ActivityIndicator, 
-  SafeAreaView 
+  SafeAreaView, 
+  TouchableOpacity
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { apiLogin } from '../api/ApiService'; 
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+
 
 // 1. Importe os estilos do arquivo separado
 import styles from './style/index.styles'; 
@@ -21,8 +25,7 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async () => {
-    // ... (toda a lógica de login permanece a mesma) ...
-    if (loading) return; 
+     if (loading) return; 
     setLoading(true);
     try {
       const response = await apiLogin(email, senha);
@@ -36,13 +39,21 @@ export default function LoginScreen() {
     }
   };
 
+  const [request, response, promptAsync] = Google.useAuthRequest({
+      webClientId: '840195184627-1teao36up4tkh8rt24hg83lfs2garoua.apps.googleusercontent.com'
+    })
+
   return (
-    // 2. Use os estilos importados (nada muda aqui)
-    <SafeAreaView style={styles.container}> 
+     <SafeAreaView style={styles.container}> 
         <View style={styles.loginBox}>
             <Text style={styles.title}>Bem-Vindo ao Finance Hub</Text>
-            <Text style={styles.subtitle}>Por favor, faça seu login</Text>
-      
+            <Text style={styles.subtitle}>Por favor, faça seu login para continuar</Text>
+
+            <TouchableOpacity 
+              style={styles.googleButton}
+                onPress={() => promptAsync()} 
+                disable={request}> Continue com o Google</TouchableOpacity>
+
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -73,6 +84,3 @@ export default function LoginScreen() {
     </SafeAreaView>
   );
 }
-
-// Note como o StyleSheet.create() sumiu daqui,
-// deixando o arquivo focado apenas no componente.
