@@ -23,7 +23,7 @@
 /* Variante Primary */
 .btn-primary {
   background-color: var(--color-primary);
-  color: white;
+  color: rgb(41, 41, 41);
   box-shadow: var(--shadow-md);
 }
 
@@ -103,17 +103,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Google Button específico */
-.btn-google {
-  background-color: white;
-  color: var(--color-gray-700);
-  border: 1.5px solid var(--color-gray-300);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-google:hover:not(:disabled) {
-  background-color: var(--color-gray-50);
-  box-shadow: var(--shadow-md);
 }

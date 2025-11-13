@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { apiLogin } from '../services/api/ApiService'
 import Input from '../components/ui/input'
 import Button from '../components/ui/Button'
+import { SiGoogle } from 'react-icons/si'
 import '../styles/Login.css'
 
 export default function Login() {
@@ -27,8 +28,8 @@ export default function Login() {
 
     if (!senha) {
       newErrors.senha = 'Senha é obrigatória'
-    } else if (senha.length < 6) {
-      newErrors.senha = 'Minimo 6 caracteres'
+    } else if (senha.length < 3) {
+      newErrors.senha = 'Senha muito curta'
     }
 
     setErrors(newErrors)
@@ -63,6 +64,11 @@ export default function Login() {
     }
   }
 
+  // Login com Google (placeholder)
+  const handleGoogleLogin = () => {
+    alert('🚧 Integração com Google OAuth em desenvolvimento!')
+  }
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -76,6 +82,24 @@ export default function Login() {
         {/* Títulos */}
         <h1 className="login-title">Bem-vindo ao FinanceHub</h1>
         <p className="login-subtitle">Faça login para continuar</p>
+
+        {/* Botão Google */}
+        <Button
+          variant="outline"
+          fullWidth
+          onClick={handleGoogleLogin}
+          className="btn-google"
+        >
+          <SiGoogle size={20} title="Google" />
+          Continuar com o Google
+        </Button>
+
+        {/* Divisor */}
+        <div className="login-divider">
+          <span className="divider-line"></span>
+          <span className="divider-text">OU</span>
+          <span className="divider-line"></span>
+        </div>
 
         {/* Formulário */}
         <form onSubmit={handleSubmit} noValidate>
@@ -99,7 +123,10 @@ export default function Login() {
             error={errors.senha}
             autoComplete="current-password"
             required
-          />        
+          />
+
+          {/* Link esqueci senha */}
+          
 
           {/* Botão submit */}
           <Button
@@ -113,9 +140,9 @@ export default function Login() {
         </form>
 
         <div className="login-forgot">
-            <Link to = "/forgot-password" className="forgot-link">
+            <a href="#" className="forgot-link">
               Esqueceu sua senha?
-            </Link>
+            </a>
           </div>
 
         {/* Link para cadastro */}

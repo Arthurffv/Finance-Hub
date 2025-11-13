@@ -1,134 +1,133 @@
+/* === Estrutura da página === */
 .login-page {
-  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: var(--spacing-lg);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  align-items: center;
+  background-color: #f8f9fa;
+  font-family: 'Inter', sans-serif;
 }
 
+/* === Cartão principal === */
 .login-container {
+  background: #fff;
+  padding: 5px 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
-  max-width: 440px;
-  background: white;
-  padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  max-width: 900px;
+  text-align: center;
 }
 
-/* Logo */
+/* === Logo === */
 .login-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: 1.5rem;
 }
 
 .logo-circle {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background-color: #f3f4f6;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
 .logo-icon {
-  font-size: 40px;
+  font-size: 2rem;
 }
 
-/* Textos */
+/* === Títulos === */
 .login-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  text-align: center;
-  color: var(--color-gray-900);
-  margin-bottom: var(--spacing-sm);
+  color: #111827;
+  margin-bottom: 0.25rem;
 }
 
 .login-subtitle {
-  font-size: 1rem;
-  text-align: center;
-  color: var(--color-gray-600);
-  margin-bottom: var(--spacing-xl);
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
 }
 
-/* Divisor */
-.login-divider {
-  display: flex;
-  align-items: center;
-  margin: var(--spacing-xl) 0;
+/* === Inputs === */
+input {
+  height: 48px;
+  border-color: #d1d5db;
+  border-width: 1.5px;
+  border-radius: 10px;
+  background-color: '#fff';
+  font-size: 16px;
+  color: #1f2937;
 }
 
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background-color: var(--color-gray-200);
-}
-
-.divider-text {
-  padding: 0 var(--spacing-md);
-  font-size: 0.875rem;
-  color: var(--color-gray-500);
-  font-weight: 500;
-}
-
-/* Formulário */
-form {
-  margin-top: var(--spacing-lg);
-}
-
+/* === Link esqueci senha === */
 .login-forgot {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: var(--spacing-lg);
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .forgot-link {
-  font-size: 0.875rem;
-  color: var(--color-primary);
+  font-size: 0.85rem;
+  color: #6b7280;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
 }
 
 .forgot-link:hover {
-  color: var(--color-primary-dark);
   text-decoration: underline;
 }
 
-/* Link de registro */
+/* === Botão Entrar === */
+button[type="submit"] {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #111827;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #1f2937;
+}
+
+button[type="submit"]:active {
+  /* Use a mesma cor do hover ou uma cor ligeiramente mais escura */
+  background-color: #1f2937; 
+  /* Adicionar uma transformação sutil melhora a UX */
+  transform: translateY(1px); 
+}
+
+/* === Rodapé: link de cadastro === */
 .login-register {
-  text-align: center;
-  margin-top: var(--spacing-lg);
-  font-size: 0.875rem;
-  color: var(--color-gray-600);
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
 .register-link {
-  color: var(--color-primary);
+  color: #2563eb;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
+  font-weight: 500;
 }
 
 .register-link:hover {
-  color: var(--color-primary-dark);
   text-decoration: underline;
 }
 
-/* Responsividade */
-@media (max-width: 640px) {
-  .login-page {
-    padding: var(--spacing-md);
-  }
-
+/* === Responsividade === */
+@media (max-width: 480px) {
   .login-container {
-    padding: var(--spacing-xl);
-  }
-
-  .login-title {
-    font-size: 1.5rem;
+    padding: 2rem 1.25rem;
   }
 }
