@@ -1,23 +1,24 @@
 /* === Estrutura da página === */
-.register-page {
+.forgot-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100px;
+  min-height: 100vh;
   background-color: #f8f9fa;
   font-family: 'Inter', sans-serif;
-  padding: 0px 2px;
+  padding: 2rem 1rem;
 }
 
 /* === Cartão principal === */
-.register-container {
+.forgot-container {
   background: #fff;
-  padding: 2px 70px;
+  padding: 40px 40px;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
-  max-width: 700px;
+  max-width: 450px;
   text-align: center;
+  position: relative;
 }
 
 /* === Botão Voltar === */
@@ -48,7 +49,7 @@
 }
 
 /* === Logo === */
-.register-logo {
+.forgot-logo {
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
@@ -69,17 +70,18 @@
 }
 
 /* === Títulos === */
-.register-title {
+.forgot-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: #111827;
   margin-bottom: 0.5rem;
 }
 
-.register-subtitle {
+.forgot-subtitle {
   font-size: 0.95rem;
   color: #6b7280;
   margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
 /* === Formulário === */
@@ -144,6 +146,10 @@ form {
   color: #9ca3af;
 }
 
+.input-field.input-error {
+  color: #ef4444;
+}
+
 .error-message {
   display: block;
   margin-top: 0.5rem;
@@ -152,8 +158,8 @@ form {
   text-align: left;
 }
 
-/* === Botão Criar Conta === */
-.register-button {
+/* === Botão Enviar === */
+.forgot-button {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -171,19 +177,19 @@ form {
   margin-top: 0.5rem;
 }
 
-.register-button:hover:not(:disabled) {
+.forgot-button:hover:not(:disabled) {
   background-color: #1f2937;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
 }
 
-.register-button:active:not(:disabled) {
+.forgot-button:active:not(:disabled) {
   background-color: #1f2937;
   transform: translateY(1px);
   box-shadow: 0 2px 6px rgba(17, 24, 39, 0.2);
 }
 
-.register-button:disabled {
+.forgot-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -205,38 +211,17 @@ form {
   }
 }
 
-/* === Rodapé: link de login === */
-.register-login {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e5e7eb;
-  font-size: 0.9rem;
-  color: #6b7280;
-}
-
-.login-link {
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.login-link:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
 /* === Responsividade === */
 @media (max-width: 480px) {
-  .register-container {
+  .forgot-container {
     padding: 2rem 1.5rem;
   }
 
-  .register-title {
+  .forgot-title {
     font-size: 1.5rem;
   }
 
-  .register-subtitle {
+  .forgot-subtitle {
     font-size: 0.875rem;
   }
 

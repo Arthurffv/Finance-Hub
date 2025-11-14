@@ -2,20 +2,17 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { apiLogin } from '../services/api/ApiService'
-import Input from '../components/ui/input'
-import Button from '../components/ui/Button'
+import { MdEmail, MdLock } from 'react-icons/md'
 import '../styles/Login.css'
 
 export default function Login() {
   const navigate = useNavigate()
   
-  // Estados do formulário
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<{ email?: string; senha?: string }>({})
 
-  // Validação
   const validate = (): boolean => {
     const newErrors: { email?: string; senha?: string } = {}
 
@@ -35,7 +32,6 @@ export default function Login() {
     return Object.keys(newErrors).length === 0
   }
 
-  // Submit do formulário
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
@@ -48,11 +44,9 @@ export default function Login() {
       const response = await apiLogin(email, senha)
       console.log('✅ Login realizado:', response)
       
-      // Salva o token (em produção, use httpOnly cookies)
       localStorage.setItem('token', response.token)
       localStorage.setItem('user', JSON.stringify(response.user))
       
-      // Redireciona para dashboard
       navigate('/dashboard')
     } catch (error) {
       setErrors({ 
@@ -79,46 +73,69 @@ export default function Login() {
 
         {/* Formulário */}
         <form onSubmit={handleSubmit} noValidate>
-          <Input
-            label="E-mail"
-            type="email"
-            placeholder="você@exemplo.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={errors.email}
-            autoComplete="email"
-            required
-          />
-
-          <Input
-            label="Senha"
-            type="password"
-            placeholder="••••••••"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            error={errors.senha}
-            autoComplete="current-password"
-            required
-          />        
-
-          {/* Botão submit */}
-          <Button
-            type="submit"
-            variant="primary"
-            fullWidth
-            isLoading={loading}
-          >
-            Entrar
-          </Button>
-        </form>
-
-        <div className="login-forgot">
-            <Link to = "/forgot-password" className="forgot-link">
-              Esqueceu sua senha?
-            </Link>
+          {/* Input Email */}
+          <div className="input-group">
+            <label htmlFor="email" className="input-label">E-mail</label>
+            <div className="input-wrapper">
+              <MdEmail size={20} className="input-icon" />
+              <input
+                id="email"
+                type="email"
+                placeholder="você@exemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={`input-field ${errors.email ? 'input-error' : ''}`}
+                autoComplete="email"
+                required
+              />
+            </div>
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-        {/* Link para cadastro */}
+          {/* Input Senha */}
+          <div className="input-group">
+            <label htmlFor="senha" className="input-label">Senha</label>
+            <div className="input-wrapper">
+              <MdLock size={20} className="input-icon" />
+              <input
+                id="senha"
+                type="password"
+                placeholder="••••••••"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                className={`input-field ${errors.senha ? 'input-error' : ''}`}
+                autoComplete="current-password"
+                required
+              />
+            </div>
+            {errors.senha && <span className="error-message">{errors.senha}</span>}
+          </div>
+
+          {/* Botão Submit */}
+          <button
+            type="submit"
+            className="login-button"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span className="spinner"></span>
+                Entrando...
+              </>
+            ) : (
+              'Entrar'
+            )}
+          </button>
+        </form>
+
+        {/* Link Esqueceu Senha */}
+        <div className="login-forgot">
+          <Link to="/forgot-password" className="forgot-link">
+            Esqueceu sua senha?
+          </Link>
+        </div>
+
+        {/* Link para Cadastro */}
         <p className="login-register">
           Não tem uma conta?{' '}
           <Link to="/register" className="register-link">

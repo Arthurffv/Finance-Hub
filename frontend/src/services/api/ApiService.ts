@@ -20,6 +20,10 @@ export interface RegisterResponse {
   email: string;
 }
 
+export interface ForgotResponse {
+  email: string;
+  message: string;
+}
 export interface Transaction{
   id:number;
   titulo: string;
@@ -48,7 +52,7 @@ export const apiLogin = async (email:string, senha:string): Promise<LoginRespons
   await delay(1000); // Simula 1 segundo de "loading"
 
   // Usuário de teste
-  if (email === 'dev@email.com' && senha === '123') {
+  if (email === 'dev@email.com' && senha === '123456') {
     console.log('MOCK LOGIN: Sucesso');
     // Retorna o token, conforme o contrato
     return { token: generateToken(email),
@@ -59,6 +63,18 @@ export const apiLogin = async (email:string, senha:string): Promise<LoginRespons
   console.error('MOCK LOGIN: Falha de autenticação');
   throw new Error('Email ou senha inválidos.');
 
+};
+
+export const apiForgot = async (email:string): Promise<ForgotResponse> => {
+  await delay(1200);
+
+  if (email === "dev@email.com") {
+    console.log('MOCK FORGOT: Sucesso');
+    return { email: email, message: "Um email foi enviado para voce." };
+  }
+
+  console.error('MOCK FORGOT: Falha de autenticação');
+  throw new Error('Email inválido.');
 };
 
 export const apiRegister = async (nome:string, email:string, senha:string): Promise<RegisterResponse> => {
