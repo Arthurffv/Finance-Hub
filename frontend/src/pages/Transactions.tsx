@@ -1,9 +1,9 @@
-// frontend/src/pages/Transactions.tsx
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent, type ChangeEvent } from 'react';
 import { apiGetTransactions, apiCreateTransaction, apiDeleteTransaction, type Transaction } from '../services/api/ApiService';
-import { MdAdd, MdDelete, MdAttachMoney, MdClose, MdArrowBack } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { MdAdd, MdDelete, MdClose } from 'react-icons/md';
+import Sidebar from '../components/Sidebar';
 import '../styles/Dashboard.css';
+import '../styles/Transactions.css';
 
 export default function Transactions() {
   const [transacoes, setTransacoes] = useState<Transaction[]>([]);
@@ -23,10 +23,19 @@ export default function Transactions() {
 
   const carregarDados = async () => {
     try {
+      console.log("Iniciando busca de dados..."); // Log 1
       const dados = await apiGetTransactions();
-      setTransacoes(dados);
+      console.log("Dados recebidos da API:", dados); // Log 2 - VEJA ISSO NO CONSOLE (F12)
+
+      // Verificação de segurança: Se dados for null/undefined, usa array vazio
+      if (Array.isArray(dados)) {
+        setTransacoes(dados);
+      } else {
+        console.error("Formato inesperado recebido:", dados);
+        setTransacoes([]); 
+      }
     } catch (error) {
-      console.error("Erro ao carregar", error);
+      console.error("Erro ao carregar:", error);
     } finally {
       setLoading(false);
     }
@@ -67,18 +76,18 @@ export default function Transactions() {
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div style={{display:'flex', alignItems:'center', gap: '10px'}}>
-            <Link to="/dashboard" style={{color: 'white', textDecoration:'none'}}><MdArrowBack size={24}/></Link>
-            <h2>Transações</h2>
-        </div>
-      </header>
+      <Sidebar />
 
-      <main className="dashboard-content">
+      <main className="main-content">
+        <header className="content-header">
+           <div className="transactions-header-content">
+             <h2>Transações</h2>
+           </div>
+        </header>
+
         <div className="actions-bar">
-          <h3>Histórico Completo</h3>
-          <button className="btn-new" onClick={() => setIsModalOpen(true)}>
-            <MdAdd size={20} /> Nova
+          <button className="btn-new-transaction" onClick={() => setIsModalOpen(true)}>
+            <MdAdd size={20} /> Nova Transação
           </button>
         </div>
 
@@ -86,18 +95,23 @@ export default function Transactions() {
           <ul className="transaction-list">
             {transacoes.map((t) => (
               <li key={t.id} className={`transaction-item ${t.tipo}`}>
-                <div className="icon-area"><MdAttachMoney /></div>
                 <div className="info-area">
                     <strong>{t.titulo}</strong>
                     <span>{t.categoria} • {new Date(t.data).toLocaleDateString()}</span>
                 </div>
                 <div className="value-area">
-                    <span className="value">
+                    <span className={`value-text ${t.tipo}`}>
                         {t.tipo === 'gasto' ? '- ' : '+ '}
                         R$ {Number(t.valor).toFixed(2)}
                     </span>
-                    <button className="btn-delete" onClick={() => handleDelete(t.id)}>
-                        <MdDelete />
+                    {/* Botão com title para acessibilidade */}
+                    <button 
+                      className="btn-delete" 
+                      onClick={() => handleDelete(t.id)}
+                      title="Excluir transação"
+                      aria-label="Excluir transação"
+                    >
+                        <MdDelete size={20} />
                     </button>
                 </div>
               </li>
@@ -111,35 +125,69 @@ export default function Transactions() {
           <div className="modal-content">
             <div className="modal-header">
                 <h3>Nova Transação</h3>
-                <button onClick={() => setIsModalOpen(false)} className="btn-close"><MdClose size={24}/></button>
+                {/* Botão com title para acessibilidade */}
+                <button 
+                  onClick={() => setIsModalOpen(false)} 
+                  className="btn-close"
+                  title="Fechar modal"
+                  aria-label="Fechar modal"
+                >
+                  <MdClose size={24}/>
+                </button>
             </div>
-            <form onSubmit={handleSalvar}>
+            
+            <form onSubmit={handleSalvar} className="form-layout">
                 <div className="form-group">
-                    <label>Descrição</label>
-                    <input type="text" value={titulo} onChange={e => setTitulo(e.target.value)} required placeholder="Ex: Almoço" />
+                    <label htmlFor="input-descricao">Descrição</label>
+                    <input 
+                      id="input-descricao"
+                      className="input-field"
+                      type="text" 
+                      value={titulo} 
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setTitulo(e.target.value)} 
+                      required 
+                    />
                 </div>
-                <div className="form-row">
+                
+                <div className="modal-row">
                     <div className="form-group">
-                        <label>Valor (R$)</label>
-                        <input type="number" value={valor} onChange={e => setValor(e.target.value)} required placeholder="0.00" />
+                        <label htmlFor="input-valor">Valor (R$)</label>
+                        <input 
+                          id="input-valor"
+                          className="input-field"
+                          type="number" 
+                          value={valor} 
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => setValor(e.target.value)} 
+                          required 
+                        />
                     </div>
                     <div className="form-group">
-                        <label>Tipo</label>
-                        <select value={tipo} onChange={e => setTipo(e.target.value as 'receita' | 'gasto')}>
+                        <label htmlFor="select-tipo">Tipo</label>
+                        <select 
+                          id="select-tipo"
+                          className="input-field"
+                          value={tipo} 
+                          onChange={(e: ChangeEvent<HTMLSelectElement>) => setTipo(e.target.value as 'receita' | 'gasto')}
+                        >
                             <option value="gasto">Despesa</option>
                             <option value="receita">Receita</option>
                         </select>
                     </div>
                 </div>
+
                 <div className="form-group">
-                    <label>Categoria</label>
-                    <input type="text" value={categoria} onChange={e => setCategoria(e.target.value)} required placeholder="Ex: Alimentação" />
+                    <label htmlFor="input-categoria">Categoria</label>
+                    <input 
+                      id="input-categoria"
+                      className="input-field"
+                      type="text" 
+                      value={categoria} 
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => setCategoria(e.target.value)} 
+                      required 
+                    />
                 </div>
-                <div className="form-group">
-                    <label>Data</label>
-                    <input type="date" value={data} onChange={e => setData(e.target.value)} />
-                </div>
-                <button type="submit" className="btn-save">Salvar</button>
+                
+                <button type="submit" className="btn-save-modal">Salvar</button>
             </form>
           </div>
         </div>

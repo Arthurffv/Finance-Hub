@@ -30,14 +30,13 @@ export interface SummaryResponse {
   total_gastos: number;
 }
 
-// ATUALIZADO: Agora com dados financeiros pessoais
 export interface UserProfile {
   nome: string;
   email: string;
   telefone: string;
-  salario: number;         // NOVO
-  custos_basicos: number;  // NOVO (Aluguel, Luz, etc)
-  limite_alerta: number;   // NOVO (Teto de gastos)
+  salario: number;
+  custos_basicos: number;
+  limite_alerta: number;
 }
 
 export interface FinancialGoal {
@@ -52,19 +51,41 @@ export interface FinancialGoal {
 const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 const generateToken = (email: string) => `fake-jwt-${btoa(email)}-${Date.now()}`;
 
-const mockTransactions: Transaction[] = [
-  { id: 1, titulo: 'Salário', valor: 5000, tipo: 'receita', categoria: 'Trabalho', data: new Date().toISOString() },
-  { id: 2, titulo: 'Almoço', valor: 25.50, tipo: 'gasto', categoria: 'Alimentação', data: new Date().toISOString() },
+// ALTERAÇÃO: Mudamos para 'let' para permitir manipulação livre da lista
+let mockTransactions: Transaction[] = [
+  { 
+    id: 1, 
+    titulo: 'Salário Mensal', 
+    valor: 5000.00, 
+    tipo: 'receita', 
+    categoria: 'Trabalho', 
+    data: new Date().toISOString() 
+  },
+  { 
+    id: 2, 
+    titulo: 'Almoço Restaurante', 
+    valor: 45.90, 
+    tipo: 'gasto', 
+    categoria: 'Alimentação', 
+    data: new Date().toISOString() 
+  },
+  { 
+    id: 3, 
+    titulo: 'Uber', 
+    valor: 15.50, 
+    tipo: 'gasto', 
+    categoria: 'Transporte', 
+    data: new Date().toISOString() 
+  },
 ];
 
-// ATUALIZADO: Dados iniciais
 let mockProfile: UserProfile = {
   nome: 'Dev Teste',
   email: 'dev@email.com',
   telefone: '(31) 99999-9999',
   salario: 5000.00,
   custos_basicos: 2000.00,
-  limite_alerta: 3000.00 // Se passar disso, avisa!
+  limite_alerta: 3000.00
 };
 
 let mockGoal: FinancialGoal = {
@@ -96,6 +117,7 @@ export const apiForgot = async (email: string): Promise<ForgotResponse> => {
 
 export const apiGetTransactions = async (): Promise<Transaction[]> => {
   await delay(500);
+  // Retorna uma cópia para evitar referência direta
   return [...mockTransactions];
 };
 
@@ -109,13 +131,19 @@ export const apiCreateTransaction = async (nova: Omit<Transaction, 'id'>): Promi
 export const apiDeleteTransaction = async (id: number): Promise<void> => {
   await delay(500);
   const index = mockTransactions.findIndex(t => t.id === id);
+  // Usa splice para remover do array original
   if (index !== -1) mockTransactions.splice(index, 1);
 };
 
 export const apiGetSummary = async (): Promise<SummaryResponse> => {
   await delay(500);
-  const receitas = mockTransactions.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + Number(t.valor), 0);
-  const gastos = mockTransactions.filter(t => t.tipo === 'gasto').reduce((acc, t) => acc + Number(t.valor), 0);
+  const receitas = mockTransactions
+    .filter(t => t.tipo === 'receita')
+    .reduce((acc, t) => acc + Number(t.valor), 0);
+    
+  const gastos = mockTransactions
+    .filter(t => t.tipo === 'gasto')
+    .reduce((acc, t) => acc + Number(t.valor), 0);
   
   return {
     total_receitas: receitas,

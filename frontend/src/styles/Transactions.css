@@ -1,0 +1,200 @@
+/* src/styles/Transactions.css */
+
+/* Garante que o container principal ocupe o espaço correto */
+.main-content {
+  padding: 2rem;
+  background-color: #F3F4F6; /* Fundo cinza claro para destacar os cards brancos */
+  min-height: 100vh;
+  color: #1F2937; /* Força cor de texto escura globalmente nesta área */
+}
+
+.transactions-header-content h2 {
+  color: #10B981; /* Verde do título */
+  margin-bottom: 0;
+}
+
+.actions-bar {
+  margin: 20px 0;
+  display: flex; /* Garante alinhamento */
+}
+
+.btn-new-transaction {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #10B981 !important; /* !important garante que não fique preto */
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btn-new-transaction:hover {
+  background-color: #059669 !important;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-item {
+  background-color: white !important; /* Força fundo branco */
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 4px solid transparent; /* Prepara a borda colorida */
+}
+
+/* Cores específicas para Receita/Gasto */
+.transaction-item.receita {
+  border-left-color: #10B981;
+}
+
+.transaction-item.gasto {
+  border-left-color: #EF4444;
+}
+
+.info-area {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* FORÇA A COR DO TEXTO PARA NÃO FICAR BRANCO */
+.info-area strong {
+  display: block;
+  font-size: 1rem;
+  color: #111827 !important; /* Preto quase absoluto */
+}
+
+.info-area span {
+  font-size: 0.85rem;
+  color: #6B7280 !important; /* Cinza médio */
+}
+
+.value-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.value-text {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.value-text.receita { color: #10B981 !important; }
+.value-text.gasto { color: #EF4444 !important; }
+
+/* Estilo do botão de deletar */
+.btn-delete {
+  background-color: transparent !important; /* Remove o fundo preto */
+  border: none;
+  cursor: pointer;
+  color: #9CA3AF !important;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #FEE2E2 !important; /* Fundo vermelho claro ao passar mouse */
+  color: #EF4444 !important; /* Ícone vermelho */
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #1F2937;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6B7280;
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151; /* Cor escura para label */
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #111827; /* Cor escura para o texto digitado */
+  background-color: white;
+}
+
+.btn-save-modal {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #10B981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
