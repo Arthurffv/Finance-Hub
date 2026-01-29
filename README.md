@@ -53,7 +53,7 @@ O **Finance Hub** é uma plataforma centralizada para controle e gestão das fin
 
 ### 📊 [ÉPICO] Visualização e Orçamento
 - [x] **[História 10]** Como usuário, eu quero ver um dashboard com meu saldo atual (Receitas - Despesas).
-- [ ] **[História 11]** Como usuário, eu quero ver um gráfico de gastos por categoria no mês atual.
+- [x] **[História 11]** Como usuário, eu quero ver um gráfico de gastos por categoria no mês atual.
 - [x] **[História 12]** Como usuário, eu quero poder definir um limite de orçamento mensal por categoria.
 - [ ] **[História 13]** Como usuário, eu quero ver um alerta visual quando atingir 80% do meu limite de orçamento.
 
