@@ -1,72 +1,111 @@
 # FINANCE HUB
 
-1. Escopo do Sistema<br>
-   1.1 - Objetivo<br>
-       Um sistema de **Gestão Financeira Pessoal (Finance Hub)**, com o objetivo principal de fornecer uma plataforma centralizada e detalhada para o controle e a gestão das finanças pessoais, de forma que o usuário possa ter uma **visão clara e completa** da sua vida financeira.<br>
-   1.2  - Features<br>
-       As principais Features (funcionalidades) serão:<br>
-       1. Controle de Gastos e Despesas: Permitir o registro de todas as saídas de dinheiro, classificadas por categorias (alimentação, moradia, transporte, lazer, etc.).<br>
-       2. Gestão de Entradas e Receitas: Permitir o registro de todas as fontes de renda, como salário, rendimentos extras e outros recebimentos, para acompanhar o fluxo de caixa positivo.<br>
-       3. Acompanhamento de Investimentos (Feature Futura): Possibilitar o registro e a visualização da carteira de investimentos (ações, fundos, renda fixa, etc.), monitorando rentabilidade e alocação.<br>
-       4. Detalhamento Financeiro: Oferecer a capacidade de incluir detalhes importantes em cada transação, como datas de vencimento, pagamentos recorrentes e notas explicativas.<br>
-       5. Geração de Relatórios e Dashboards: Apresentar painéis visuais intuitivos e relatórios personalizáveis (mensais e anuais) sobre o desempenho financeiro, comparando receitas e despesas e a evolução dos investimentos.<br>
-       6. Orçamento Pessoal: Funcionalidade para criar e acompanhar orçamentos definidos por categoria, ajudando o usuário a manter-se dentro dos limites financeiros estabelecidos.<br>
+# 🚀 Finance Hub - Gestão Financeira Pessoal
 
-2. Membros da Equipe<br>
-     Arthur Fernando Fernandes Vasconcelos - Frontend Developer<br>
-     Davi Emílio de Paula Fonseca - Fullstack Developer<br>
-     Eduardo Christianini Fonseca Junior - Backend Developer<br>
-     Joao Vitor Cota Silva - Frontend Developer<br>
-     Tharsos Gabriel Couto Fernandes - Backend Developer<br>
+## 1. Escopo do Sistema
 
-3. Tecnologias<br>
-     Frontend: React<br>
-     Backend: JavaScript<br>
-     Controle de versão: GitHub<br>
-     Gerenciamento de Ambientes (Containerização): Docker<br>
-     Prototipagem: Figma e Base44<br>
-     Banco de Dados: PostgreSQL<br>
+### 1.1 - Objetivo
+O **Finance Hub** é uma plataforma centralizada para controle e gestão das finanças pessoais. O objetivo principal é fornecer ao usuário uma visão clara, completa e intuitiva de sua vida financeira, facilitando a tomada de decisão e o planejamento a longo prazo.
 
-4. Backlog do Produto (Product Backlog)<br>
+### 1.2 - Funcionalidades (Features)
+1. **Controle de Gastos e Despesas:** Registro detalhado de saídas classificadas por categorias (alimentação, transporte, lazer, etc.).
+2. **Gestão de Entradas e Receitas:** Registro de fontes de renda (salário, freelance, rendimentos) para acompanhamento do fluxo de caixa.
+3. **Acompanhamento de Investimentos (Futuro):** Visualização de carteira (ações, renda fixa) com monitoramento de rentabilidade.
+4. **Detalhamento de Transações:** Inclusão de datas, notas explicativas e marcações de pagamentos recorrentes.
+5. **Dashboards Inteligentes:** Painéis visuais para comparação de receitas vs. despesas e evolução patrimonial.
+6. **Orçamento Pessoal:** Definição de limites de gastos por categoria com alertas de teto orçamentário.
 
-   [ÉPICO] Autenticação e Segurança do Usuário<br>
-   [História 1] Como um novo usuário, eu quero poder me cadastrar na plataforma usando meu e-mail e uma senha, para que eu possa ter uma conta pessoal e segura.<br>
-   [História 2] Como um usuário cadastrado, eu quero poder fazer login no sistema, para acessar meu painel financeiro.<br>
-   [História 3] Como um usuário logado, eu quero poder fazer logout da minha conta, para garantir a segurança das minhas informações.<br>
-   [História 4] Como um usuário que esqueceu a senha, eu quero poder solicitar uma redefinição de senha através do meu e-mail, para recuperar o acesso à minha conta.<br>
-   
-   [ÉPICO] Gestão de Transações (Receitas e Despesas)<br>
-   [História 5] Como usuário, eu quero poder registrar uma nova despesa, informando valor, data, descrição e uma categoria, para acompanhar para onde meu dinheiro está indo.<br>
-   [História 6] Como usuário, eu quero poder registrar uma nova receita, informando valor, data, descrição e uma categoria (ex: "Salário", "Freelance"), para saber quanto dinheiro estou recebendo.<br>
-   [História 7] Como usuário, eu quero poder editar os detalhes (valor, data, descrição e categoria) de uma transação que já registrei, para corrigir erros ou adicionar informações.<br>
-   [História 8] Como usuário, eu quero poder excluir uma transação que registrei por engano ou que não é mais relevante.<br>
-   [História 9] Como usuário, eu quero ver uma lista de todas as minhas transações (receitas e despesas) em ordem cronológica, para ter uma visão geral do meu fluxo de caixa.<br>
-   
-   [ÉPICO] Visualização e Orçamento<br>
-   [História 10] Como usuário, eu quero ver um dashboard principal com o meu saldo atual (Total de Receitas - Total de Despesas do mês), para entender minha situação financeira rapidamente.<br>
-   [História 11] Como usuário, eu quero ver um gráfico (ex: pizza ou barras) no dashboard que mostre meus gastos totais por categoria no mês atual, para identificar onde estou gastando mais.<br>
-   [História 12] Como usuário, eu quero poder definir um limite de orçamento mensal para categorias específicas (ex: R$ 400 em "Restaurantes"), para tentar controlar meus gastos.<br>
-   [História 13] Como usuário, eu quero ser notificado ou ver um alerta visual quando eu estiver próximo (ex: 80%) de atingir o limite de orçamento de uma categoria.<br>
-   
-   [ÉPICO] Acompanhamento de Investimentos (Feature Futura)<br>
-   [História 14] Como usuário, eu quero poder registrar meus diferentes tipos de investimentos (ex: Ações, Renda Fixa) e a quantidade/valor aplicado, para centralizar minhas finanças.<br>
-   [História 15] Como usuário, eu quero poder atualizar o valor atual dos meus investimentos, para acompanhar a rentabilidade da minha carteira.<br>
+---
 
-5. Backlog da Sprint (Sprint Backlog) - Sprint 1<br>
-   Meta da Sprint 1: "Permitir que um usuário se cadastre, faça login, registre uma transação (receita ou despesa) e veja seu saldo atualizado."<br>
-   Observação: as funcionalidades de **receita e despesa compartilham a mesma estrutura técnica**, sendo diferenciadas pelo tipo da transação, caracterizando um único CRUD.<br>
-   
-   [História 1] Como um novo usuário, eu quero poder me cadastrar na plataforma usando meu e-mail e uma senha, para que eu possa ter uma conta pessoal e segura.<br>
-   (Tarefas Técnicas: Criar modelo User, endpoint /register no Backend, tela de cadastro no Frontend).<br>
-   
-   [História 2] Como um usuário cadastrado, eu quero poder fazer login no sistema, para acessar meu painel financeiro.<br>
-   (Tarefas Técnicas: Criar endpoint /login com JWT/token no Backend, tela de login no Frontend, gestão de estado de autenticação).<br>
-   
-   [História 3] Como usuário, eu quero poder registrar uma nova despesa, informando valor, data, descrição e uma categoria, para que eu possa acompanhar para onde meu dinheiro está indo.<br>
-   (Tarefas Técnicas: Criar modelo Transaction e Category no Backend, endpoint POST /transactions, formulário "Nova Despesa" no Frontend).<br>
-   
-   [História 4] Como usuário, eu quero poder registrar uma nova receita, informando valor, data, descrição e uma categoria (ex: "Salário", "Freelance"), para saber quanto dinheiro estou recebendo.<br>
-   (Tarefas Técnicas: Reutilizar o endpoint POST /transactions, diferenciando por tipo, formulário "Nova Receita" no Frontend).<br>
-   
-   [História 5] Como usuário, eu quero ver um dashboard principal com o meu saldo atual (Total de Receitas - Total de Despesas do mês), para entender minha situação financeira rapidamente.<br>
-   (Tarefas Técnicas: Criar endpoint GET /dashboard/summary no Backend que calcula o saldo, componente de "Saldo" na tela principal do Frontend).<br>
+## 👥 Membros da Equipe
+* **Arthur Fernando Fernandes Vasconcelos** - *Frontend Developer*
+* **Davi Emílio de Paula Fonseca** - *Fullstack Developer*
+* **Eduardo Christianini Fonseca Junior** - *Backend Developer*
+* **Joao Vitor Cota Silva** - *Frontend Developer*
+* **Tharsos Gabriel Couto Fernandes** - *Backend Developer*
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+* **Frontend:** React (TypeScript)
+* **Backend:** Node.js (JavaScript)
+* **Banco de Dados:** PostgreSQL
+* **Containerização:** Docker
+* **Versionamento:** GitHub
+* **Design/Prototipagem:** Figma e Base44
+
+---
+
+## 📋 Backlog do Produto (Product Backlog)
+
+### 🔐 [ÉPICO] Autenticação e Segurança do Usuário
+- [x] **[História 1]** Como um novo usuário, eu quero poder me cadastrar na plataforma usando meu e-mail e uma senha.
+- [x] **[História 2]** Como um usuário cadastrado, eu quero poder fazer login no sistema para acessar meu painel.
+- [ ] **[História 3]** Como um usuário logado, eu quero poder fazer logout da minha conta.
+- [x] **[História 4]** Como um usuário que esqueceu a senha, eu quero poder solicitar uma redefinição via e-mail.
+
+### 💸 [ÉPICO] Gestão de Transações (Receitas e Despesas)
+- [x] **[História 5]** Como usuário, eu quero poder registrar uma nova despesa informando valor, data e categoria.
+- [x] **[História 6]** Como usuário, eu quero poder registrar uma nova receita para acompanhar minha renda.
+- [ ] **[História 7]** Como usuário, eu quero poder editar os detalhes de uma transação já registrada.
+- [x] **[História 8]** Como usuário, eu quero poder excluir uma transação registrada por engano.
+- [x] **[História 9]** Como usuário, eu quero ver uma lista de todas as minhas transações em ordem cronológica.
+
+### 📊 [ÉPICO] Visualização e Orçamento
+- [x] **[História 10]** Como usuário, eu quero ver um dashboard com meu saldo atual (Receitas - Despesas).
+- [ ] **[História 11]** Como usuário, eu quero ver um gráfico de gastos por categoria no mês atual.
+- [x] **[História 12]** Como usuário, eu quero poder definir um limite de orçamento mensal por categoria.
+- [ ] **[História 13]** Como usuário, eu quero ver um alerta visual quando atingir 80% do meu limite de orçamento.
+
+### 🔍 [ÉPICO] Filtros e Exportação (Melhorias de UX)
+- [ ] **[História 14]** Como usuário, quero filtrar minha lista de transações por mês e ano para análise histórica.
+- [ ] **[História 15]** Como usuário, quero poder baixar um arquivo CSV das minhas transações para uso externo.
+
+5. ## 📅 Backlog da Sprint 1
+
+**Meta da Sprint:** "Permitir que um usuário se cadastre, faça login, registre transações financeiras e visualize seu saldo consolidado no dashboard."
+
+---
+
+### 🛡️ [História 1] Cadastro de Usuário
+**Descrição:** Como um novo usuário, eu quero poder me cadastrar na plataforma usando meu e-mail e uma senha, para que eu possa ter uma conta pessoal e segura.
+
+- [x] Criar modelo de dados `User` no Banco de Dados.
+- [x] Desenvolver endpoint `POST /auth/register` no Backend.
+- [x] Criar tela de Cadastro com validação de campos no Frontend.
+
+---
+
+### 🔑 [História 2] Login e Autenticação
+**Descrição:** Como um usuário cadastrado, eu quero poder fazer login no sistema, para acessar meu painel financeiro de forma segura.
+
+- [x] Criar endpoint `POST /auth/login` com geração de Token JWT no Backend.
+- [x] Criar tela de Login no Frontend.
+- [x] Implementar armazenamento do token (LocalStorage) e proteção de rotas privadas.
+
+---
+
+### 💸 [História 3] Registro de Despesas
+**Descrição:** Como usuário, eu quero poder registrar uma nova despesa, informando valor, data, descrição e categoria, para acompanhar minhas saídas financeiras.
+
+- [x] Criar modelo `Transaction` (identificado com tipo: "gasto") no Backend.
+- [x] Criar endpoint `POST /transactions` para salvar os dados.
+- [x] Desenvolver formulário de entrada de despesas no Frontend.
+
+---
+
+### 💰 [História 4] Registro de Receitas
+**Descrição:** Como usuário, eu quero poder registrar uma nova receita, informando valor, data, descrição e categoria, para saber quanto dinheiro estou recebendo.
+
+- [x] Reutilizar o modelo e endpoint de transações, enviando o tipo como "receita".
+- [x] Desenvolver interface para entrada de receitas no Frontend.
+- [x] Listar transações cadastradas para conferência do usuário.
+
+---
+
+### 📊 [História 5] Dashboard de Saldo Consolidado
+**Descrição:** Como usuário, eu quero ver um dashboard principal com o meu saldo atualizado, para entender minha situação financeira rapidamente.
+
+- [x] Criar endpoint `GET /transactions` para buscar o histórico do usuário.
+- [x] Implementar lógica no Frontend para somar receitas, subtrair despesas e calcular o saldo total.
+- [x] Criar componentes visuais de resumo (Cards de Saldo, Receitas e Despesas) no Dashboard.
