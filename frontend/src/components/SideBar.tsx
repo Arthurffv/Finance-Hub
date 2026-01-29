@@ -1,6 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ArrowRightLeft, User, MessageCircle, LogOut } from 'lucide-react';
-import '../styles/Dashboard.css'; // Importa os estilos globais do dashboard
+import { 
+  LayoutDashboard, 
+  ArrowRightLeft, 
+  User, 
+  MessageCircle, 
+  LogOut, 
+  FileText 
+} from 'lucide-react';
+import '../styles/Dashboard.css';
 
 export default function Sidebar() {
   const location = useLocation();
@@ -20,21 +27,28 @@ export default function Sidebar() {
         <div className="nav-section">
           <p className="nav-title">MENU PRINCIPAL</p>
           <ul>
-            <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+            <Link to="/dashboard" className="nav-link">
               <li className={getActiveClass('/dashboard')}>
                 <LayoutDashboard size={20} />
                 <span>Dashboard</span>
               </li>
             </Link>
             
-            <Link to="/transactions" style={{ textDecoration: 'none' }}>
+            <Link to="/transactions" className="nav-link">
               <li className={getActiveClass('/transactions')}>
                 <ArrowRightLeft size={20} />
                 <span>Transações</span>
               </li>
             </Link>
+
+            <Link to="/reports" className="nav-link">
+              <li className={getActiveClass('/reports')}>
+                <FileText size={20} />
+                <span>Relatórios</span>
+              </li>
+            </Link>
             
-            <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <Link to="/profile" className="nav-link">
               <li className={getActiveClass('/profile')}>
                 <User size={20} />
                 <span>Perfil</span>
