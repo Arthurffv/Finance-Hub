@@ -4,11 +4,10 @@ import Register from './pages/Register'
 import ForgotPassword from './pages/ForgotPassword'
 import Dashboard from './pages/Dashboard'
 import Reports from './pages/Reports'
-/*import Transactions from './pages/Transactions'
-import Profile from './pages/Profile' // <--- IMPORTE AQUI*/
+import Transactions from './pages/Transactions'
+import Profile from './pages/Profile' 
 
-/*         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/profile" element={<Profile />} /> */
+/*       */
 
 function App() {
   return (
@@ -24,6 +23,8 @@ function App() {
 
         
         <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )
