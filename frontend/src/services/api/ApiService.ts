@@ -1,4 +1,7 @@
 // frontend/src/services/api/ApiService.ts
+import axios from 'axios'; // <--- 1. Importamos o Axios
+
+const API_URL = 'http://localhost:3000'; // <--- 2. Definimos o endereço do Backend
 
 // --- 1. Interfaces ---
 
@@ -46,12 +49,12 @@ export interface FinancialGoal {
   data_limite: string;
 }
 
-// --- 2. Dados Falsos (Mock) ---
+// --- 2. Dados Falsos (Mock para o Dashboard) ---
+// Mantemos isso para as telas internas funcionarem enquanto não fazemos o backend delas
 
 const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 const generateToken = (email: string) => `fake-jwt-${btoa(email)}-${Date.now()}`;
 
-// ALTERAÇÃO: Mudamos para 'let' para permitir manipulação livre da lista
 let mockTransactions: Transaction[] = [
   { 
     id: 1, 
@@ -95,20 +98,61 @@ let mockGoal: FinancialGoal = {
   data_limite: '2026-12-25'
 };
 
-// --- 3. Funções da API ---
+// --- 3. Funções da API (AQUI ESTÁ A MUDANÇA) ---
 
+// LOGIN REAL (Conectado ao Backend)
 export const apiLogin = async (email: string, senha: string): Promise<LoginResponse> => {
-  await delay(800);
-  if (email === 'dev@email.com' && senha === '123456') {
-    return { token: generateToken(email), user: { id: 1, nome: 'Dev', email } };
+  try {
+    // Envia para o backend
+    const response = await axios.post(`${API_URL}/users/login`, {
+      email: email,
+      password: senha // O backend espera 'password', mas o front enviava 'senha'
+    });
+
+    // Ajuste Técnico: O Front espera 'nome' e ID número, o Back manda 'username' e ID string (UUID)
+    // Vamos adaptar a resposta aqui para o Front não quebrar
+    return {
+      token: response.data.token,
+      user: {
+        id: 1, // Mockamos o ID numérico pois o front não aceita UUID ainda
+        nome: response.data.user.username, // Mapeamos username -> nome
+        email: response.data.user.email
+      }
+    };
+  } catch (error: any) {
+    console.error("Erro no login:", error);
+    // Se o backend mandou mensagem de erro, repassa ela
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error('Falha ao conectar com o servidor');
   }
-  throw new Error('Login inválido');
 };
 
-export const apiRegister = async (nome: string, email: string, _senha: string): Promise<RegisterResponse> => {
-  await delay(1000);
-  return { id: Math.random(), nome, email };
+// CADASTRO REAL (Conectado ao Backend)
+export const apiRegister = async (nome: string, email: string, senha: string): Promise<RegisterResponse> => {
+  try {
+    const response = await axios.post(`${API_URL}/users/register`, {
+      username: nome, // Mapeamos nome -> username
+      email: email,
+      password: senha
+    });
+
+    return {
+      id: 1, // Mockamos o ID numérico
+      nome: response.data.username,
+      email: response.data.email
+    };
+  } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error('Erro ao criar conta');
+  }
 };
+
+// --- MANTENDO O RESTO COMO MOCK (Não mexa daqui para baixo) ---
+// Essas funções continuam falsas até criarmos o backend financeiro
 
 export const apiForgot = async (email: string): Promise<ForgotResponse> => {
   await delay(800);
@@ -117,7 +161,6 @@ export const apiForgot = async (email: string): Promise<ForgotResponse> => {
 
 export const apiGetTransactions = async (): Promise<Transaction[]> => {
   await delay(500);
-  // Retorna uma cópia para evitar referência direta
   return [...mockTransactions];
 };
 
@@ -131,7 +174,6 @@ export const apiCreateTransaction = async (nova: Omit<Transaction, 'id'>): Promi
 export const apiDeleteTransaction = async (id: number): Promise<void> => {
   await delay(500);
   const index = mockTransactions.findIndex(t => t.id === id);
-  // Usa splice para remover do array original
   if (index !== -1) mockTransactions.splice(index, 1);
 };
 
