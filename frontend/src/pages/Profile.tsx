@@ -1,4 +1,4 @@
-// src/pages/Profile.tsx
+// frontend/src/pages/Profile.tsx
 import React, { useState, useEffect, type FormEvent } from 'react';
 import Sidebar from '../components/SideBar';
 import { 
@@ -8,7 +8,7 @@ import {
 } from '../services/api/ApiService';
 import { User, Target, Save, AlertTriangle } from 'lucide-react';
 
-// IMPORTANDO O CSS ESPECÍFICO DESTA PÁGINA
+// IMPORTANTE: Garanta que este arquivo CSS existe (código abaixo)
 import '../styles/Profile.css';
 
 export default function Profile() {

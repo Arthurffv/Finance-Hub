@@ -1,105 +1,85 @@
-/* src/styles/Profile.css */
+/* frontend/src/styles/Profile.css */
 
-.profile-layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    align-items: start;
+:root {
+  --primary-green: #10B981;
+  --primary-green-bg: #D1FAE5;
+  --bg-color: #F3F4F6;
+  --text-dark: #1F2937;
+  --text-gray: #6B7280;
+  --sidebar-width: 260px;
 }
 
-.profile-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+.dashboard-container { display: flex; min-height: 100vh; background-color: var(--bg-color); }
+
+/* --- MAIN LAYOUT --- */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1; padding: 2rem;
 }
 
-.card-header-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    color: #333;
-    border-bottom: 2px solid #f5f5f5;
-    padding-bottom: 1rem;
+.content-header { margin-bottom: 2rem; }
+.content-header h2 { font-size: 1.8rem; color: var(--primary-green); margin-bottom: 0.5rem; }
+.date-display { color: var(--text-gray); font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
+
+/* --- ESTILOS DE PERFIL --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
 }
 
-.card-header-profile h3 { margin: 0; font-size: 1.3rem; }
-
-/* Botões */
-.btn-save-profile, .btn-save-goal {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    transition: 0.3s;
+.card {
+  background: white; padding: 1.5rem; border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #e5e7eb;
 }
 
-.btn-save-profile { background: #333; color: white; }
-.btn-save-profile:hover { background: #555; }
-
-.btn-save-goal { background: #00bf63; color: white; }
-.btn-save-goal:hover { background: #009e52; }
-
-/* --- BARRA DE PROGRESSO E ESTATÍSTICAS --- */
-.goal-summary {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-    text-align: center;
+.card-header {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;
 }
+.card-header h3 { font-size: 1.1rem; color: var(--text-dark); font-weight: 600; }
 
-.progress-container {
-    background: #e0e0e0;
-    height: 12px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
+.icon-bg {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
 }
+.green-light { background-color: var(--primary-green-bg); }
+.text-green { color: var(--primary-green); }
 
-.progress-bar {
-    background: linear-gradient(90deg, #00bf63, #00eb7a);
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
+/* Formulários Internos */
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-gray); margin-bottom: 0.5rem; }
+
+.form-input {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid #E5E7EB; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.95rem;
+  color: var(--text-dark); background-color: #fff; outline: none;
+  transition: border-color 0.2s;
 }
+.form-input:focus { border-color: var(--primary-green); box-shadow: 0 0 0 3px var(--primary-green-bg); }
 
-.progress-text {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 600;
-    margin-bottom: 1rem;
+.form-row { display: flex; gap: 1rem; }
+
+.btn-primary {
+  background-color: var(--primary-green); color: white; border: none;
+  padding: 12px 20px; border-radius: 8px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: opacity 0.2s;
+  font-size: 0.95rem;
 }
+.btn-primary:hover { opacity: 0.9; }
 
-.goal-stats {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-}
+/* Barra de Progresso */
+.progress-card { background: #F9FAFB; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; border: 1px solid #f3f4f6;}
+.progress-bar-bg { width: 100%; height: 10px; background: #E5E7EB; border-radius: 5px; overflow: hidden; margin: 8px 0 1rem 0; }
+.progress-bar-fill { height: 100%; background: var(--primary-green); transition: width 0.5s; }
 
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-}
-
-.stat-item strong { font-size: 1.1rem; margin-top: 4px; }
-.stat-item.red strong { color: #ff4d4d; }
-.stat-item.blue strong { color: #007bff; }
-
-.input-with-icon {
-    display: flex;
-    align-items: center;
-    position: relative;
+/* Correção para telas pequenas */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; padding: 1rem; }
+  .profile-grid { grid-template-columns: 1fr; }
 }
