@@ -20,7 +20,9 @@ export async function loginController(req, res) {
             return res.status(401).json({ message: 'Credenciais inválidas' })
         }
 
-        const isPasswordCorrect = await bcrypt.compare(password, user.password_hash)
+        // CORREÇÃO AQUI: Mudamos de .password_hash para .password
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+        
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: 'Credenciais inválidas' })
         }
@@ -45,6 +47,9 @@ export async function createUserController(req, res) {
         if (!isValidPassword(password)) return res.status(400).json({ message: 'Senha curta' })
     
         const passwordHash = await bcrypt.hash(password, 10)
+        
+        // Aqui mantemos passwordHash porque é o nome da variável local, 
+        // o repositório que vai se virar para salvar na coluna certa.
         const user = await createUser({ username, email, passwordHash })
 
         return res.status(201).json(user)

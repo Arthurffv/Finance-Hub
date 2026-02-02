@@ -18,10 +18,12 @@ export async function findUserByEmail(email) {
 // Criar Usuário
 export async function createUser({ username, email, passwordHash }) {
     const query = `
-    INSERT INTO users (username, email, password_hash)
+    INSERT INTO users (username, email, password)
     VALUES ($1, $2, $3)
     RETURNING id, username, email, created_at
     `
+    // Note acima: Mudei "password_hash" para "password" para bater com sua tabela!
+    
     const values = [username, email, passwordHash]
     const { rows } = await pool.query(query, values)
     return rows[0]
