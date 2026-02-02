@@ -1,18 +1,20 @@
 // frontend/src/pages/Profile.tsx
-import { useState, useEffect, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { MdArrowBack, MdSave, MdPerson, MdFlag, MdTimeline, MdAttachMoney, MdWarning, MdCalculate } from 'react-icons/md';
+import React, { useState, useEffect, type FormEvent } from 'react';
+import Sidebar from '../components/SideBar';
 import { 
   apiGetProfile, apiUpdateProfile, 
   apiGetGoal, apiUpdateGoal, 
   type UserProfile, type FinancialGoal 
 } from '../services/api/ApiService';
-import '../styles/Dashboard.css';
+import { User, Target, Save, AlertTriangle } from 'lucide-react';
+
+// IMPORTANTE: Garanta que este arquivo CSS existe (código abaixo)
 import '../styles/Profile.css';
 
 export default function Profile() {
   const [loading, setLoading] = useState(true);
   
+  // Estados
   const [perfil, setPerfil] = useState<UserProfile>({ 
     nome: '', email: '', telefone: '', 
     salario: 0, custos_basicos: 0, limite_alerta: 0 
@@ -22,10 +24,10 @@ export default function Profile() {
     titulo: '', valor_objetivo: 0, valor_atual: 0, data_limite: '' 
   });
 
+  // Métricas
   const [progresso, setProgresso] = useState(0);
   const [falta, setFalta] = useState(0);
   const [mensalidade, setMensalidade] = useState(0);
-  const [dinheiroLivre, setDinheiroLivre] = useState(0);
 
   useEffect(() => {
     carregarTudo();
@@ -33,9 +35,7 @@ export default function Profile() {
 
   useEffect(() => {
     calcularMetricas();
-    // Calcula dinheiro livre (Salário - Custos)
-    setDinheiroLivre(perfil.salario - perfil.custos_basicos);
-  }, [meta, perfil]);
+  }, [meta]);
 
   const carregarTudo = async () => {
     try {
@@ -63,12 +63,8 @@ export default function Profile() {
       const limite = new Date(meta.data_limite);
       const diferencaAnos = limite.getFullYear() - hoje.getFullYear();
       const diferencaMeses = (diferencaAnos * 12) + (limite.getMonth() - hoje.getMonth());
-      
-      if (diferencaMeses > 0) {
-        setMensalidade(valorFalta / diferencaMeses);
-      } else {
-        setMensalidade(valorFalta);
-      }
+      const mesesReais = diferencaMeses <= 0 ? 1 : diferencaMeses;
+      setMensalidade(valorFalta / mesesReais);
     } else {
       setMensalidade(0);
     }
@@ -77,131 +73,141 @@ export default function Profile() {
   const handleSalvarPerfil = async (e: FormEvent) => {
     e.preventDefault();
     await apiUpdateProfile(perfil);
-    alert('Dados financeiros atualizados!');
+    alert('Perfil atualizado com sucesso!');
   };
 
   const handleSalvarMeta = async (e: FormEvent) => {
     e.preventDefault();
     await apiUpdateGoal(meta);
-    alert('Meta definida!');
+    alert('Meta atualizada com sucesso!');
   };
-
-  if (loading) return <div className="loading-screen">Carregando...</div>;
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div style={{display:'flex', alignItems:'center', gap: '15px'}}>
-          <Link to="/dashboard" style={{color: 'white'}}><MdArrowBack size={28}/></Link>
-          <h2>Planejamento Pessoal</h2>
+      <Sidebar />
+      
+      <main className="main-content">
+        <header className="content-header">
+            <div>
+              <h2>Meu Perfil</h2>
+              <div className="date-display">
+                  <User size={16}/>
+                  <span>Configure seus dados e objetivos</span>
+              </div>
+            </div>
+        </header>
+
+        <div className="profile-grid">
+            
+            {/* --- CARD 1: DADOS --- */}
+            <div className="card">
+                <div className="card-header">
+                    <h3>Dados Pessoais & Finanças</h3>
+                    <div className="icon-bg green-light">
+                        <User size={20} className="text-green"/>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSalvarPerfil}>
+                    <div className="form-group">
+                        <label>Nome Completo</label>
+                        <input className="form-input" type="text" value={perfil.nome} onChange={e => setPerfil({...perfil, nome: e.target.value})} />
+                    </div>
+                    <div className="form-row">
+                         <div className="form-group" style={{flex:1}}>
+                            <label>Email</label>
+                            <input className="form-input" type="email" value={perfil.email} onChange={e => setPerfil({...perfil, email: e.target.value})} />
+                        </div>
+                        <div className="form-group" style={{flex:1}}>
+                            <label>Telefone</label>
+                            <input className="form-input" type="text" value={perfil.telefone} onChange={e => setPerfil({...perfil, telefone: e.target.value})} />
+                        </div>
+                    </div>
+
+                    <div style={{borderTop:'1px solid #F3F4F6', margin:'1.5rem 0'}}></div>
+
+                    <div className="form-row">
+                        <div className="form-group" style={{flex:1}}>
+                            <label>Salário (R$)</label>
+                            <input className="form-input" type="number" value={perfil.salario} onChange={e => setPerfil({...perfil, salario: Number(e.target.value)})} />
+                        </div>
+                        <div className="form-group" style={{flex:1}}>
+                            <label>Custos Fixos (R$)</label>
+                            <input className="form-input" type="number" value={perfil.custos_basicos} onChange={e => setPerfil({...perfil, custos_basicos: Number(e.target.value)})} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label style={{display:'flex', alignItems:'center', gap:'5px', color:'#EF4444'}}>
+                            <AlertTriangle size={14}/> Alerta de Gastos (Teto Mensal)
+                        </label>
+                        <input className="form-input" type="number" value={perfil.limite_alerta} onChange={e => setPerfil({...perfil, limite_alerta: Number(e.target.value)})} />
+                    </div>
+
+                    <button type="submit" className="btn-primary" style={{width:'100%', justifyContent:'center'}}>
+                        <Save size={18}/> Salvar Dados
+                    </button>
+                </form>
+            </div>
+
+            {/* --- CARD 2: METAS --- */}
+            <div className="card">
+                <div className="card-header">
+                    <h3>Objetivo Financeiro</h3>
+                    <div className="icon-bg green-light">
+                        <Target size={20} className="text-green"/>
+                    </div>
+                </div>
+
+                <div className="progress-card">
+                    <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.9rem', fontWeight:'600'}}>
+                        <span style={{color:'var(--text-gray)'}}>Progresso</span>
+                        <span style={{color:'var(--primary-green)'}}>{progresso.toFixed(1)}%</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar-fill" style={{width:`${progresso}%`}}></div>
+                    </div>
+                    
+                    <div style={{display:'flex', justifyContent:'space-between', marginTop:'0.5rem'}}>
+                         <div>
+                            <span style={{display:'block', fontSize:'0.75rem', color:'#6B7280'}}>Falta Juntar</span>
+                            <span style={{fontWeight:'bold', color:'#EF4444'}}>R$ {falta.toFixed(2)}</span>
+                         </div>
+                         <div style={{textAlign:'right'}}>
+                            <span style={{display:'block', fontSize:'0.75rem', color:'#6B7280'}}>Economia Sugerida</span>
+                            <span style={{fontWeight:'bold', color:'#3B82F6'}}>R$ {mensalidade.toFixed(2)}/mês</span>
+                         </div>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSalvarMeta}>
+                    <div className="form-group">
+                        <label>Nome do Objetivo</label>
+                        <input className="form-input" type="text" value={meta.titulo} onChange={e => setMeta({...meta, titulo: e.target.value})} placeholder="Ex: Viagem..."/>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="form-group" style={{flex:1}}>
+                            <label>Valor Meta</label>
+                            <input className="form-input" type="number" value={meta.valor_objetivo} onChange={e => setMeta({...meta, valor_objetivo: Number(e.target.value)})} />
+                        </div>
+                        <div className="form-group" style={{flex:1}}>
+                            <label>Já Tenho</label>
+                            <input className="form-input" type="number" value={meta.valor_atual} onChange={e => setMeta({...meta, valor_atual: Number(e.target.value)})} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Data Limite</label>
+                        <input className="form-input" type="date" value={meta.data_limite} onChange={e => setMeta({...meta, data_limite: e.target.value})} />
+                    </div>
+
+                    <button type="submit" className="btn-primary" style={{width:'100%', justifyContent:'center'}}>
+                        <Target size={18}/> Atualizar Meta
+                    </button>
+                </form>
+            </div>
         </div>
-      </header>
-
-      <main className="dashboard-content profile-layout">
-        
-        {/* COLUNA 1: DADOS E FINANÇAS PESSOAIS */}
-        <section className="profile-card">
-          <div className="card-header-profile">
-            <MdPerson size={24} />
-            <h3>Perfil & Finanças</h3>
-          </div>
-          
-          <form onSubmit={handleSalvarPerfil}>
-            <div className="form-group">
-              <label>Nome</label>
-              <input type="text" value={perfil.nome} onChange={e => setPerfil({...perfil, nome: e.target.value})} />
-            </div>
-            
-            <div className="form-row">
-                <div className="form-group">
-                    <label>Salário Mensal (R$)</label>
-                    <input type="number" value={perfil.salario} onChange={e => setPerfil({...perfil, salario: Number(e.target.value)})} />
-                </div>
-                <div className="form-group">
-                    <label>Custos Fixos (R$)</label>
-                    <input type="number" value={perfil.custos_basicos} onChange={e => setPerfil({...perfil, custos_basicos: Number(e.target.value)})} />
-                </div>
-            </div>
-
-            {/* CARD DE ANÁLISE RÁPIDA */}
-            <div style={{background: '#f0f8ff', padding: '1rem', borderRadius: '8px', margin: '1rem 0', border: '1px solid #cce4ff'}}>
-                <div style={{display:'flex', alignItems:'center', gap:'8px', marginBottom:'5px', color:'#0056b3'}}>
-                    <MdCalculate /> <strong>Resumo Mensal:</strong>
-                </div>
-                <p style={{margin:0, fontSize:'0.9rem', color:'#555'}}>
-                    Sobram <strong>R$ {dinheiroLivre.toFixed(2)}</strong> livres após pagar contas básicas.
-                </p>
-            </div>
-
-            <div className="form-group">
-                <label style={{color: '#ff4d4d', display:'flex', alignItems:'center', gap:'5px'}}>
-                    <MdWarning/> Definir Alerta de Gastos (Teto)
-                </label>
-                <input 
-                    type="number" 
-                    value={perfil.limite_alerta} 
-                    onChange={e => setPerfil({...perfil, limite_alerta: Number(e.target.value)})} 
-                    style={{borderColor: '#ffcccb'}}
-                    placeholder="Avise-me se eu gastar mais que..."
-                />
-            </div>
-
-            <button type="submit" className="btn-save-profile">
-              <MdSave /> Salvar Dados
-            </button>
-          </form>
-        </section>
-
-        {/* COLUNA 2: OBJETIVOS (MANTIDO) */}
-        <section className="profile-card goal-card">
-          <div className="card-header-profile">
-            <MdFlag size={24} />
-            <h3>Minha Meta</h3>
-          </div>
-          
-          <div className="goal-summary">
-            <div className="progress-container">
-              <div className="progress-bar" style={{width: `${progresso}%`}}></div>
-            </div>
-            <p className="progress-text">{progresso.toFixed(1)}% Concluído</p>
-            
-            <div className="goal-stats">
-              <div className="stat-item red">
-                <span>Falta:</span>
-                <strong>R$ {falta.toFixed(2)}</strong>
-              </div>
-              <div className="stat-item blue">
-                <span>Guardar:</span>
-                <strong>R$ {mensalidade.toFixed(2)} / mês</strong>
-              </div>
-            </div>
-          </div>
-
-          <form onSubmit={handleSalvarMeta}>
-            <div className="form-group">
-              <label>Objetivo</label>
-              <input type="text" value={meta.titulo} onChange={e => setMeta({...meta, titulo: e.target.value})} />
-            </div>
-            <div className="form-row">
-                <div className="form-group">
-                    <label>Valor Meta</label>
-                    <input type="number" value={meta.valor_objetivo} onChange={e => setMeta({...meta, valor_objetivo: Number(e.target.value)})} />
-                </div>
-                <div className="form-group">
-                    <label>Já Tenho</label>
-                    <input type="number" value={meta.valor_atual} onChange={e => setMeta({...meta, valor_atual: Number(e.target.value)})} />
-                </div>
-            </div>
-            <div className="form-group">
-              <label>Data Limite</label>
-              <input type="date" value={meta.data_limite} onChange={e => setMeta({...meta, data_limite: e.target.value})} />
-            </div>
-            <button type="submit" className="btn-save-goal">
-              <MdAttachMoney /> Atualizar Meta
-            </button>
-          </form>
-        </section>
-
       </main>
     </div>
   );
