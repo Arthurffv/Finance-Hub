@@ -1,105 +1,237 @@
 /* frontend/src/styles/Profile.css */
 
+/* Layout Principal */
 .profile-layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas lado a lado */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
+@media (max-width: 900px) {
+  .profile-layout {
+    grid-template-columns: 1fr; /* Vira uma coluna no celular/tablet */
+  }
+}
+
+/* Header Personalizado para o Perfil */
+.profile-header-container {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-header-container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1F2937;
+}
+
+.profile-header-container .btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F3F4F6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #4B5563;
+  transition: all 0.2s;
+}
+
+.profile-header-container .btn-back:hover {
+  background-color: #E5E7EB;
+  color: #111827;
+}
+
+/* Cards Principais */
 .profile-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    color: #333;
-    border-bottom: 2px solid #f5f5f5;
-    padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #F3F4F6;
 }
 
-.card-header-profile h3 { margin: 0; font-size: 1.3rem; }
+.card-header-profile svg {
+  color: #10B981; /* Verde do tema */
+  font-size: 1.5rem;
+}
+
+.card-header-profile h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1F2937;
+}
+
+/* Formulários */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #F9FAFB;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #10B981;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
 
 /* Botões */
 .btn-save-profile, .btn-save-goal {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    transition: 0.3s;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
-.btn-save-profile { background: #333; color: white; }
-.btn-save-profile:hover { background: #555; }
+.btn-save-profile {
+  background-color: #1F2937; /* Escuro/Preto */
+  color: white;
+}
 
-.btn-save-goal { background: #00bf63; color: white; }
-.btn-save-goal:hover { background: #009e52; }
+.btn-save-goal {
+  background-color: #10B981; /* Verde */
+  color: white;
+}
 
-/* --- BARRA DE PROGRESSO E ESTATÍSTICAS --- */
+.btn-save-profile:hover, .btn-save-goal:hover {
+  opacity: 0.9;
+}
+
+/* Card de Resumo Financeiro (Azul Claro) */
+.summary-box {
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.summary-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2563EB; /* Azul Forte */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.summary-text {
+  margin: 0;
+  color: #4B5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.summary-text strong {
+  color: #1F2937;
+}
+
+/* Barra de Progresso da Meta */
 .goal-summary {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-    text-align: center;
+  background-color: #F9FAFB;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .progress-container {
-    background: #e0e0e0;
-    height: 12px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 0.5rem;
+  height: 12px;
+  background-color: #E5E7EB;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
 }
 
 .progress-bar {
-    background: linear-gradient(90deg, #00bf63, #00eb7a);
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
+  height: 100%;
+  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+  border-radius: 99px;
+  transition: width 1s ease-in-out;
 }
 
 .progress-text {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 600;
-    margin-bottom: 1rem;
+  font-weight: 600;
+  color: #059669;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
 .goal-stats {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E5E7EB;
 }
 
 .stat-item {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.stat-item strong { font-size: 1.1rem; margin-top: 4px; }
-.stat-item.red strong { color: #ff4d4d; }
-.stat-item.blue strong { color: #007bff; }
-
-.input-with-icon {
-    display: flex;
-    align-items: center;
-    position: relative;
+.stat-item span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6B7280;
 }
+
+.stat-item strong {
+  font-size: 1.1rem;
+  color: #1F2937;
+}
+
+.stat-item.blue strong { color: #2563EB; }
+.stat-item.red strong { color: #DC2626; }

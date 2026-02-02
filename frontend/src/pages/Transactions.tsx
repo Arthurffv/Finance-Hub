@@ -1,9 +1,11 @@
-// frontend/src/pages/Transactions.tsx
 import { useState, useEffect, type FormEvent } from 'react';
+// CORREÇÃO: Usando apenas "../" pois o arquivo está em src/pages/
 import { apiGetTransactions, apiCreateTransaction, apiDeleteTransaction, type Transaction } from '../services/api/ApiService';
 import { MdAdd, MdDelete, MdAttachMoney, MdClose, MdArrowBack } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import '../styles/Dashboard.css';
+
+// CORREÇÃO: Importando o CSS exclusivo da página
+import '../styles/Transactions.css'; 
 
 export default function Transactions() {
   const [transacoes, setTransacoes] = useState<Transaction[]>([]);
@@ -66,15 +68,17 @@ export default function Transactions() {
   }
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div style={{display:'flex', alignItems:'center', gap: '10px'}}>
-            <Link to="/dashboard" style={{color: 'white', textDecoration:'none'}}><MdArrowBack size={24}/></Link>
+    // Usa o container isolado do CSS novo
+    <div className="transactions-container">
+      
+      <div className="transactions-content">
+        <header className="transactions-header">
+            <Link to="/dashboard" className="btn-back">
+              <MdArrowBack size={24}/>
+            </Link>
             <h2>Transações</h2>
-        </div>
-      </header>
+        </header>
 
-      <main className="dashboard-content">
         <div className="actions-bar">
           <h3>Histórico Completo</h3>
           <button className="btn-new" onClick={() => setIsModalOpen(true)}>
@@ -97,14 +101,14 @@ export default function Transactions() {
                         R$ {Number(t.valor).toFixed(2)}
                     </span>
                     <button className="btn-delete" onClick={() => handleDelete(t.id)}>
-                        <MdDelete />
+                        <MdDelete size={20} />
                     </button>
                 </div>
               </li>
             ))}
           </ul>
         )}
-      </main>
+      </div>
 
       {isModalOpen && (
         <div className="modal-overlay">
