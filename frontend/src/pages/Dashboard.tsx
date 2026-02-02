@@ -37,6 +37,7 @@ interface CategoryData {
 
 const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
 
+
 const Dashboard: React.FC = () => {
   const [dataChart, setDataChart] = useState<ChartData[]>([]);
   const [categoryData, setCategoryData] = useState<CategoryData[]>([]);

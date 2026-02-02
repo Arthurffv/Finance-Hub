@@ -1,55 +1,75 @@
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   ArrowRightLeft, 
+  FileText, 
   User, 
-  MessageCircle, 
   LogOut, 
-  FileText 
+  MessageCircle 
 } from 'lucide-react';
 import '../styles/Dashboard.css';
 
-export default function Sidebar() {
+const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const getActiveClass = (path: string) => location.pathname === path ? 'active' : '';
+
+  // Tenta recuperar o usuário salvo no login (se existir)
+  const user = JSON.parse(localStorage.getItem('user') || '{"username": "Usuário"}');
+
+  // Função para checar se o link está ativo (para ficar verde)
+  const isActive = (path: string) => {
+    return location.pathname === path ? 'active' : '';
+  };
+
+  const handleLogout = () => {
+    // 1. Limpa os dados de autenticação
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // 2. Redireciona para o Login
+    navigate('/');
+  };
 
   return (
     <aside className="sidebar">
+      {/* Cabeçalho da Sidebar (Logo) */}
       <div className="sidebar-header">
-        <div className="logo-icon">B</div>
+        <div className="logo-icon">F</div>
         <div>
-          <h1 className="logo-text">FinanceHub</h1>
+          <div className="logo-text">FinanceHub</div>
           <span className="logo-subtext">Controle Inteligente</span>
         </div>
       </div>
 
+      {/* Menu de Navegação */}
       <nav className="sidebar-nav">
         <div className="nav-section">
-          <p className="nav-title">MENU PRINCIPAL</p>
+          <div className="nav-title">MENU PRINCIPAL</div>
           <ul>
             <Link to="/dashboard" className="nav-link">
-              <li className={getActiveClass('/dashboard')}>
+              <li className={isActive('/dashboard')}>
                 <LayoutDashboard size={20} />
                 <span>Dashboard</span>
               </li>
             </Link>
-            
+
             <Link to="/transactions" className="nav-link">
-              <li className={getActiveClass('/transactions')}>
+              <li className={isActive('/transactions')}>
                 <ArrowRightLeft size={20} />
                 <span>Transações</span>
               </li>
             </Link>
 
-            <Link to="/reports" className="nav-link">
-              <li className={getActiveClass('/reports')}>
+            <Link to="#" className="nav-link">
+              <li className={isActive('/relatorios')}>
                 <FileText size={20} />
                 <span>Relatórios</span>
               </li>
             </Link>
-            
+
             <Link to="/profile" className="nav-link">
-              <li className={getActiveClass('/profile')}>
+              <li className={isActive('/profile')}>
                 <User size={20} />
                 <span>Perfil</span>
               </li>
@@ -57,8 +77,9 @@ export default function Sidebar() {
           </ul>
         </div>
 
+        {/* Seção WhatsApp (Visual) */}
         <div className="nav-section">
-          <p className="nav-title">WHATSAPP</p>
+          <div className="nav-title">WHATSAPP</div>
           <button className="whatsapp-btn">
             <MessageCircle size={20} />
             Conectar WhatsApp
@@ -66,19 +87,27 @@ export default function Sidebar() {
         </div>
       </nav>
 
+      {/* Rodapé (Perfil + Logout) */}
       <div className="sidebar-footer">
         <div className="user-profile">
-          <div className="avatar">U</div>
+          <div className="avatar">
+            {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+          </div>
           <div className="user-info">
-            <p className="user-name">Usuário</p>
-            <p className="user-email">Ver perfil</p>
+            <p className="user-name">{user.username || 'Usuário'}</p>
+            <Link to="/profile" style={{ fontSize: '0.75rem', color: '#6B7280' }}>
+              Ver perfil
+            </Link>
           </div>
         </div>
-        <button className="logout-btn">
+
+        <button className="logout-btn" onClick={handleLogout}>
           <LogOut size={18} />
-          <span>Sair</span>
+          Sair
         </button>
       </div>
     </aside>
   );
-}
+};
+
+export default Sidebar;
