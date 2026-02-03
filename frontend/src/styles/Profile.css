@@ -83,3 +83,55 @@
   .main-content { margin-left: 0; padding: 1rem; }
   .profile-grid { grid-template-columns: 1fr; }
 }
+
+.divider {
+  border-top: 1px solid #F3F4F6;
+  margin: 1.5rem 0;
+}
+
+.alert-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #EF4444;
+}
+
+.full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.progress-percent {
+  color: var(--primary-green);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.progress-info span {
+  display: block;
+  font-size: 0.75rem;
+  color: #6B7280;
+}
+
+.progress-info .right {
+  text-align: right;
+}
+
+.danger {
+  color: #EF4444;
+}
+
+.info {
+  color: #3B82F6;
+}

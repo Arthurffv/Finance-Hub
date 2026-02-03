@@ -19,12 +19,12 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/reports" element={<Reports />} />
 
         
         <Route path="*" element={<Navigate to="/login" replace />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )
