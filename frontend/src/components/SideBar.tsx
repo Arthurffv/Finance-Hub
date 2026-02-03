@@ -61,8 +61,8 @@ const Sidebar: React.FC = () => {
               </li>
             </Link>
 
-            <Link to="#" className="nav-link">
-              <li className={isActive('/relatorios')}>
+            <Link to="/reports" className="nav-link">
+              <li className={isActive('/reports')}>
                 <FileText size={20} />
                 <span>Relatórios</span>
               </li>
